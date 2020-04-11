@@ -27,8 +27,23 @@ class TradeSim():
         ibm.write(data.text)
         print(data.text)
 
-    def purchase(self, symbol, amount, date):
-        pass
+    def getTestPrice(self, date):
+        """
+        Description:
+            Gets the avarage stockprice for IBM on the given date.
+        Paramaters:
+            date: String giving the date to check given as 'yyyy-mm-dd'
+        Return value:
+            float: Avarage stockprice for IBM on the given date 
+        """
+        avarage = 0
+        with open('IBM.day') as json_file:
+            data = json.load(json_file)
+            for price in sorted(data['Time Series (Daily)'][date])[:4]:
+                avarage += float(data['Time Series (Daily)'][date][price])
+            avarage /= 4
+            return avarage
     
 if __name__ == "__main__":
     trade = TradeSim()
+    print(trade.getTestPrice("2000-04-10"))
