@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# API key
+APIkey.txt
+
+# Stock prices
+*.day
