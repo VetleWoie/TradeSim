@@ -14,7 +14,6 @@ class TradeSim():
         """
         keyfile = open('APIkey.txt')
         self.key = keyfile.readline()
-        print(self.key)
         keyfile.close()
     
     def createTestfile(self):
@@ -25,7 +24,6 @@ class TradeSim():
         data = requests.get(APIURL + self.key)
         ibm = open('IBM.day', 'w')
         ibm.write(data.text)
-        print(data.text)
 
     def getTestPrice(self, date):
         """
@@ -43,6 +41,17 @@ class TradeSim():
                 avarage += float(data['Time Series (Daily)'][date][price])
             avarage /= 4
             return avarage
+    
+    def getTestDates(self):
+        """
+        Description:
+            Method to get the valible dates for the test stock
+        Return value:
+            List: List with all valible dates in increasing order
+        """
+        with open('IBM.day') as json_file:
+            data = json.load(json_file)
+            return sorted(data['Time Series (Daily)'])
     
 if __name__ == "__main__":
     trade = TradeSim()
